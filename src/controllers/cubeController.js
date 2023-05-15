@@ -1,7 +1,6 @@
 const Cube = require('../models/Cube');
 const db=require('../db.json');
 
-
 exports.getCreateCube = (req, res) => {
     res.render('create');
 }
@@ -13,12 +12,8 @@ exports.postCreateCube = async (req, res) => {
     res.redirect('/');
 }
 
-exports.getDetails = (req, res)=>{
-    let cubeId=req.params.cubeId;
-    if(!cubeId){
-        return res.redirect('/404');
-    }
-    let cube = db.cubes.find(x=>x.id === cubeId);
+exports.getDetails = async (req, res)=>{
+    const cube = await Cube.findById(req.params.cubeId).lean();
     if(!cube){
         return res.redirect('/404');
     }
