@@ -7,10 +7,8 @@ exports.getCreateAccessory = (req, res)=>{
 
 exports.getAttachAccessory = async (req, res)=>{
     const cube = await Cube.findById(req.params.cubeId).lean();
-    if(!cube){
-        return res.redirect('/404');
-    }
-    res.render('attachAccessory', {cube});
+    const accessories = await Accessory.find().lean();
+    res.render('attachAccessory', {cube,accessories })
 }
 
 exports.postCreateAccessory = async (req, res) => {
