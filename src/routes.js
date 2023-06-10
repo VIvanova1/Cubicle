@@ -7,9 +7,12 @@ const accessoryController= require('./controllers/accessoryController');
 router.get('/', homeController.getHomePage);
 router.get('/about', homeController.getAboutPage);
 router.get('/404', homeController.getErrorPage);
+
 router.get('/create', cubeController.getCreateCube);
 router.post('/create', cubeController.postCreateCube)
 router.get('/details/:cubeId', cubeController.getDetails)
+
+router.post('/cubes/:cubeId/attach', cubeController.postAttachAccessory)
 
 router.get('/create/accessory', accessoryController.getCreateAccessory)
 router.get('/attach/accessory/:cubeId', accessoryController.getAttachAccessory)
