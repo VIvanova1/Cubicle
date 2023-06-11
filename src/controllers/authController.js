@@ -2,29 +2,37 @@ const router = require('express').Router();
 const authManager = require('../managers/authManager');
 
 
-router.get('/login', (req, res)=>{
+router.get('/login', (req, res) => {
     res.render('loginPage')
 });
-
-router.get('/register', (req, res)=>{
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        await authManager.login(username, password);
+    } catch (err) {
+        throw res.redirect('/404')
+    }
+    res.redirect('/');
+});
+router.get('/register', (req, res) => {
     res.render('registerPage')
 });
 
 
-router.post('/register', async (req, res)=>{
-    const {username, password, repeatPassword} = req.body;
+router.post('/register', async (req, res) => {
+    const { username, password, repeatPassword } = req.body;
 
-    if(password != repeatPassword) {
+    if (password != repeatPassword) {
         return res.redirect('/404');
     }
-const existingUser = await authManager.getUserByUsername(username);
+    const existingUser = await authManager.getUserByUsername(username);
 
-if(existingUser) {
-    return res.redirect('/404');
-}
+    if (existingUser) {
+        return res.redirect('/404');
+    }
 
- await authManager.register(username,password);
-res.redirect('/login')
+    await authManager.register(username, password);
+    res.redirect('/login')
 });
 
 module.exports = router;
