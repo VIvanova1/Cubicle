@@ -11,14 +11,17 @@ router.get('/about', homeController.getAboutPage);
 router.get('/404', homeController.getErrorPage);
 
 router.get('/create', isAuthenicated, cubeController.getCreateCube);
-router.post('/create',isAuthenicated, cubeController.postCreateCube)
-router.get('/details/:cubeId', cubeController.getDetails)
+router.post('/create',isAuthenicated, cubeController.postCreateCube);
+router.get('/details/:cubeId', cubeController.getDetails);
 
-router.post('/cubes/:cubeId/attach', cubeController.postAttachAccessory)
+router.post('/cubes/:cubeId/attach', cubeController.postAttachAccessory);
+router.get('/cubes/:cubeId/edit', cubeController.getEditCube)
+router.get('/cubes/:cubeId/delete', cubeController.getDeleteCube)
 
-router.get('/create/accessory', accessoryController.getCreateAccessory)
-router.get('/attach/accessory/:cubeId', accessoryController.getAttachAccessory)
-router.post('/attach/accessory', accessoryController.postCreateAccessory)
+router.get('/create/accessory', isAuthenicated, accessoryController.getCreateAccessory);
+router.get('/attach/accessory/:cubeId', accessoryController.getAttachAccessory);
+router.post('/attach/accessory', accessoryController.postCreateAccessory);
 
-router.use('/', authController)
+
+router.use('/', authController);
 module.exports = router;
