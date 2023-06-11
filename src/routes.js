@@ -3,6 +3,7 @@ const router = require('express').Router();
 const cubeController = require('./controllers/cubeController');
 const homeController = require('./controllers/homeController');
 const accessoryController= require('./controllers/accessoryController');
+const authController = require('./controllers/authController');
 
 router.get('/', homeController.getHomePage);
 router.get('/about', homeController.getAboutPage);
@@ -18,4 +19,5 @@ router.get('/create/accessory', accessoryController.getCreateAccessory)
 router.get('/attach/accessory/:cubeId', accessoryController.getAttachAccessory)
 router.post('/attach/accessory', accessoryController.postCreateAccessory)
 
+router.use('/', authController)
 module.exports = router;
