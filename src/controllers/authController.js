@@ -5,15 +5,20 @@ const authManager = require('../managers/authManager');
 router.get('/login', (req, res) => {
     res.render('loginPage')
 });
+
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+
     try {
         const token = await authManager.login(username, password);
+        res.cookie('auth', token, {httpOnly: true});
+        res.redirect('/');
     } catch (err) {
         throw res.redirect('/404')
     }
-    res.redirect('/');
+
 });
+
 router.get('/register', (req, res) => {
     res.render('registerPage')
 });

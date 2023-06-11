@@ -1,6 +1,6 @@
 const util = require('util');
 
-const jwtCallback = reqire('jsonwebtoken');
+const jwtCallback = require('jsonwebtoken');
 
 
 const jwt = {
